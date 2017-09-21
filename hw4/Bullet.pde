@@ -22,8 +22,6 @@ class Bullet {
         this.dead = true; 
       }
     } else {
-      println(this);
-      println(allBullets);
       allBullets.remove(this);
     }
   }
