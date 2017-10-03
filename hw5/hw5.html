@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HW 5</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/addons/p5.dom.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/addons/p5.sound.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		LAYER_SIZE = 20;
+		GRID_WIDTH = 560;
+		GRID_HEIGHT = 560;
+		LEFT_X = 0;
+		LEFT_Y = 0;
+		TOP_X = 0;
+		TOP_Y = 0;
+		RIGHT_X = 540;
+		RIGHT_Y = 0;
+		BOTTOM_X = 0;
+		BOTTOM_Y = 560;
+
+		function setup() {
+			createCanvas(560, 560);
+			background(100);
+			frameRate(30);
+
+			LIGHT_RED = color(207, 59, 55);
+			MEDIUM_RED = color(205, 63, 61);
+			DARK_RED = color(218, 76, 56);
+
+			GENERIC_ORANGE = color(205, 86, 52);
+
+			GENERIC_YELLOW = color(251, 229, 0);
+
+			LIGHT_BLUE_GREEN = color(72, 91, 57);
+			MEDIUM_BLUE_GREEN = color(64, 78, 65);
+			DARK_BLUE_GREEN = color(58, 67, 64);
+
+			LIGHT_BLUE = color(71, 78, 84);
+			MEDIUM_BLUE = color(54, 68, 81);
+			DARK_BLUE = color(49, 65, 88);
+		}
+
+		function resetConstants() {
+			LEFT_X = 0;
+			LEFT_Y = 0;
+			TOP_X = 0;
+			TOP_Y = 0;
+			RIGHT_X = 540;
+			RIGHT_Y = 0;
+			BOTTOM_X = 0;
+			BOTTOM_Y = 560;
+		}
+
+		function trapezoid(x1, y1, x2, y2, x3, y3, x4, y4) {
+			beginShape();
+			vertex(x1, y1);
+			vertex(x2, y2);
+			vertex(x3, y3);
+			vertex(x4, y4);
+			endShape();
+		}
+
+		function nextBottomTrapezoid() {
+			trapezoid(BOTTOM_X, BOTTOM_Y, BOTTOM_X + LAYER_SIZE, BOTTOM_Y - LAYER_SIZE, GRID_WIDTH - BOTTOM_X - LAYER_SIZE, BOTTOM_Y - LAYER_SIZE, GRID_WIDTH - BOTTOM_X, BOTTOM_Y);
+			BOTTOM_X += LAYER_SIZE;
+			BOTTOM_Y -= LAYER_SIZE;
+		}
+
+		function nextLeftTrapezoid() {
+			trapezoid(LEFT_X, LEFT_Y, LEFT_X + LAYER_SIZE, LEFT_Y + LAYER_SIZE, LEFT_X + LAYER_SIZE, GRID_HEIGHT - LEFT_Y - LAYER_SIZE, LEFT_X, GRID_HEIGHT - LEFT_Y);
+			LEFT_X += LAYER_SIZE;
+			LEFT_Y += LAYER_SIZE;
+		}
+
+		function nextTopTrapezoid() {
+			trapezoid(TOP_X, TOP_Y, GRID_WIDTH - TOP_X - LAYER_SIZE, TOP_Y, GRID_WIDTH - TOP_X - LAYER_SIZE - LAYER_SIZE, TOP_Y + LAYER_SIZE, TOP_X + LAYER_SIZE, TOP_Y + LAYER_SIZE);
+			TOP_X += LAYER_SIZE;
+			TOP_Y += LAYER_SIZE;
+		}
+
+		function nextRightTrapezoid() {
+			trapezoid(RIGHT_X - LAYER_SIZE, RIGHT_Y + LAYER_SIZE, RIGHT_X, RIGHT_Y, RIGHT_X, GRID_HEIGHT - RIGHT_Y - LAYER_SIZE, RIGHT_X - LAYER_SIZE, GRID_HEIGHT - RIGHT_Y - LAYER_SIZE - LAYER_SIZE);
+			RIGHT_X -= LAYER_SIZE;
+			RIGHT_Y += LAYER_SIZE;
+		}
+
+		function draw() {
+			noStroke();
+			// Start on the right and build clockwise
+			fill(LIGHT_RED);
+			trapezoid(540, 0, 560, 0, 560, 560, 540, 540);
+
+			// Every shape has white outline
+			stroke(255,255,255);
+			fill(MEDIUM_RED);
+			nextBottomTrapezoid();
+			fill(DARK_RED);
+			nextLeftTrapezoid();
+			fill(GENERIC_ORANGE);
+			nextTopTrapezoid();
+			fill(GENERIC_YELLOW);
+			nextRightTrapezoid();
+
+			fill(LIGHT_BLUE_GREEN);
+			nextBottomTrapezoid();
+			fill(MEDIUM_BLUE_GREEN);
+			nextLeftTrapezoid();
+			fill(DARK_BLUE_GREEN);
+			nextTopTrapezoid();
+			fill(DARK_BLUE);
+			nextRightTrapezoid();
+
+			fill(MEDIUM_BLUE);
+			nextBottomTrapezoid();
+			fill(LIGHT_BLUE);
+			nextLeftTrapezoid();
+			fill(LIGHT_RED);
+			nextTopTrapezoid();
+			fill(MEDIUM_RED);
+			nextRightTrapezoid();
+
+			fill(DARK_RED);
+			nextBottomTrapezoid();
+			fill(GENERIC_ORANGE);
+			nextLeftTrapezoid();
+			fill(GENERIC_YELLOW);
+			nextTopTrapezoid();
+			fill(LIGHT_BLUE_GREEN);
+			nextRightTrapezoid();
+
+			fill(MEDIUM_BLUE_GREEN);
+			nextBottomTrapezoid();
+			fill(DARK_BLUE_GREEN);
+			nextLeftTrapezoid();
+			fill(DARK_BLUE);
+			nextTopTrapezoid();
+			fill(MEDIUM_BLUE);
+			nextRightTrapezoid();
+
+			fill(LIGHT_BLUE);
+			nextBottomTrapezoid();
+			fill(DARK_RED);
+			nextLeftTrapezoid();
+			fill(MEDIUM_RED);
+			nextTopTrapezoid();
+			fill(LIGHT_RED);
+			nextRightTrapezoid();
+
+			fill(GENERIC_ORANGE);
+			nextBottomTrapezoid();
+			fill(GENERIC_YELLOW);
+			nextLeftTrapezoid();
+			fill(LIGHT_BLUE_GREEN);
+			nextTopTrapezoid();
+			fill(DARK_BLUE_GREEN);
+			nextRightTrapezoid();
+
+			fill(LIGHT_BLUE);
+			nextBottomTrapezoid();
+			fill(DARK_BLUE);
+			nextLeftTrapezoid();
+			fill(MEDIUM_BLUE);
+			nextTopTrapezoid();
+			fill(LIGHT_BLUE);
+			nextRightTrapezoid();
+
+			fill(MEDIUM_RED);
+			nextBottomTrapezoid();
+			fill(DARK_RED);
+			nextLeftTrapezoid();
+			fill(LIGHT_RED);
+			nextTopTrapezoid();
+			fill(GENERIC_ORANGE);
+			nextRightTrapezoid();
+
+			fill(GENERIC_YELLOW);
+			nextBottomTrapezoid();
+			fill(LIGHT_BLUE_GREEN);
+			nextLeftTrapezoid();
+			fill(DARK_BLUE_GREEN);
+			nextTopTrapezoid();
+			fill(DARK_BLUE);
+			nextRightTrapezoid();
+
+			fill(MEDIUM_BLUE);
+			nextBottomTrapezoid();
+			fill(MEDIUM_BLUE);
+			nextLeftTrapezoid();
+			fill(LIGHT_BLUE);
+			nextTopTrapezoid();
+			fill(DARK_RED);
+			nextRightTrapezoid();
+
+			fill(LIGHT_RED);
+			nextBottomTrapezoid();
+			fill(MEDIUM_RED);
+			nextLeftTrapezoid();
+			fill(GENERIC_ORANGE);
+			nextTopTrapezoid();
+			fill(GENERIC_YELLOW);
+			nextRightTrapezoid();
+
+
+			fill(LIGHT_BLUE_GREEN);
+			nextBottomTrapezoid();
+			fill(MEDIUM_BLUE_GREEN);
+			nextLeftTrapezoid();
+			fill(DARK_BLUE_GREEN);
+			nextTopTrapezoid();
+			fill(DARK_BLUE);
+			nextRightTrapezoid();
+
+			fill(MEDIUM_BLUE);
+			nextBottomTrapezoid();
+			fill(LIGHT_BLUE);
+			nextLeftTrapezoid();
+			fill(LIGHT_RED);
+			triangle(TOP_X, TOP_Y, TOP_X + LAYER_SIZE, TOP_Y, TOP_X + 10, TOP_Y + 10); 
+			fill(MEDIUM_RED);
+			triangle(RIGHT_X, RIGHT_Y, RIGHT_X, RIGHT_Y + LAYER_SIZE, RIGHT_X - 10, RIGHT_Y + 10);
+
+			// Reset all constants so that the picture remains static
+			resetConstants();
+		}
+	</script>
+</body>
+</html>
