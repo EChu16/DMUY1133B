@@ -1,4 +1,5 @@
 class CircleMonster {
+  Player player;
   float xPos, yPos;
   float timePassed = 0;
   float timeDelay = random(5000, 50000);
@@ -13,9 +14,10 @@ class CircleMonster {
   int lives = int(random(1, 3));
   int ellipseSize = int(random(10, 30));
   
-  CircleMonster(float x, float y) {
+  CircleMonster(float x, float y, Player p) {
     xPos = x;
     yPos = y;
+    player = p;
   }
   
   void move() {
@@ -46,17 +48,23 @@ class CircleMonster {
     ellipse(xPos, yPos, ellipseSize, ellipseSize);
   }
   
-  void isDead() {
-    if (lives == 0) {
-      allMonsters.remove(this);
-      dead = true;
-    }
+  boolean isHittingPlayer() {
+      float distance = sqrt(sq(this.xPos - this.player.xPos + 20) + sq(this.yPos - this.player.yPos - 5));
+      println(distance);
+      if (distance <= this.ellipseSize) {
+        return true;
+      }
+      return false;
   }
   
   void update() {
     if(!this.dead) {
       move();
       renderShape();
+      if(this.isHittingPlayer()) {
+        this.dead = true;
+        this.player.lives -= 1;
+      }
     }
   }
 }

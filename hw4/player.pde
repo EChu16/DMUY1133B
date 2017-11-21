@@ -7,6 +7,7 @@ class Player {
   float speed = 8;
   boolean dead = false;
   float movementAmt;
+  int lives = 3;
   
   Player(int x, int y) {
     xPos = x;
@@ -47,11 +48,16 @@ class Player {
     }
   }
   
+  boolean isDead() {
+    return this.lives == 0;
+  }
+  
   void update(boolean leftPressed, boolean rightPressed, boolean spacePressed) {
     move(leftPressed, rightPressed);
     shoot(spacePressed);
-    
-    this.renderPlayer();
-    lastTime = millis();
+    if(!this.isDead()) {
+      this.renderPlayer();
+      lastTime = millis();
+    }
   }
 }

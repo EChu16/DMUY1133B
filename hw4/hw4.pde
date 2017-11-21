@@ -7,7 +7,7 @@ int GRID_RIGHT_BOUNDARY = GRID_WIDTH + GRID_PADDING;
 int GRID_UPPER_BOUNDARY = GRID_PADDING + 10;
 int GRID_BOTTOM_BOUNDARY = GRID_HEIGHT + GRID_PADDING;
 int SPAWN_POINT_X = (GRID_WIDTH / 2) + GRID_PADDING;
-int FRAME_RATE = 30;
+int FRAME_RATE = 40;
 Player player = new Player(SPAWN_POINT_X, GRID_HEIGHT - GRID_PADDING);
 boolean isGameOver = false;
 boolean leftPressed = false;
@@ -23,7 +23,7 @@ float lastTime = 0;
 int numSpawns = 1;
 
 void setup() {
-  size(500, 820);
+  size(520, 820);
   background(100);
   frameRate(FRAME_RATE);
   
@@ -39,7 +39,7 @@ void renderGrid() {
 
 void spawnMonster() {
   randX = random(GRID_LEFT_BOUNDARY + 30, GRID_RIGHT_BOUNDARY - 30);
-  allMonsters.add(new CircleMonster(randX, GRID_UPPER_BOUNDARY + 30));
+  allMonsters.add(new CircleMonster(randX, GRID_UPPER_BOUNDARY + 30, player));
 }
 
 void updateTimeDelay() {
@@ -62,24 +62,36 @@ void updateTimeDelay() {
 }
 
 void draw() {
+  background(100);
+  fill(255,255,255);
+  text("Monsters killed", 420, 30);
+  text(str(monstersKilled), 420, 45);
+  
+  text("Player lives", 420, 80);
+  text(str(player.lives), 420, 95);
   renderGrid();
-  if (timePassed >= timeDelay) {
-    for (int i = 0; i < numSpawns; i ++) {
-      spawnMonster();
+  if (!player.isDead()) {
+    if (timePassed >= timeDelay) {
+      for (int i = 0; i < numSpawns; i ++) {
+        spawnMonster();
+      }
+      updateTimeDelay();
+      timePassed = 0;
+    } else {
+      timePassed += millis() - lastTime;
     }
-    updateTimeDelay();
-    timePassed = 0;
+    player.update(leftPressed, rightPressed, spacePressed);
+    for (int i = 0; i < allMonsters.size(); i++) {
+      allMonsters.get(i).update();
+    }
+    for (int i = 0; i < allBullets.size(); i++) {
+      allBullets.get(i).update();
+    }
+    lastTime = millis();  
   } else {
-    timePassed += millis() - lastTime;
-  }
-  player.update(leftPressed, rightPressed, spacePressed);
-  for (int i = 0; i < allMonsters.size(); i++) {
-    allMonsters.get(i).update();
-  }
-  for (int i = 0; i < allBullets.size(); i++) {
-    allBullets.get(i).update();
-  }
-  lastTime = millis();
+    fill(255,255,255);
+    text("Game Over", 180, 150);
+  }  
 }
 
 void keyPressed() { 
