@@ -206,6 +206,12 @@ function setNewImgChoice(imgChoice) {
     case "apple.jpg":
         mosaic_img = apple_img
         break;
+    case "egg.png":
+        mosaic_img = egg_img
+        break;
+    case "gudetama.jpg":
+        mosaic_img = gudetama_img
+        break;
     default:
         mosaic_img = marilyn_img;
 }
