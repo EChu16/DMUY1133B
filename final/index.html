@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+    <script src="flickrcolors.js"></script>
+    <script src="sketch.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body style="font-family: Avenir">
+  	<div class="content" style="text-align: center;">
+		<div id="sketch-canvas" style="display: inline-block;">
+			<h2 style="padding: 10px 0 10px 0">Mosaic</h2>
+		</div>
+		<div id="sketch-original-pic" style="display: inline-block;width: 600px;padding-left: 20px">
+			<h2 style="padding: 10px 0 10px 0">Original Image</h2>
+			<img id="orig-img" src="marilynmonroe.jpg" style="width: 600px; height: 600px;">
+		</div>
+	</div>
+	<div id="message"></div>
+	<div style="text-align: center; padding-top: 20px;">
+		<input id="keyword" style="font-size: 16px;" type="text" value="girl" placeholder="Search Keyword">
+		<select id="image-choice" style="font-size: 16px;">
+			<option value="marilynmonroe.jpg" selected>Marilyn Monroe</option>
+			<option value="apple.jpg">Apple</option>
+			<option value="egg.png">Egg</option>
+			<option value="gudetama.jpg">Gudetama</option>
+		</select>
+		<div style="display:inline-block; cursor: pointer; border-radius: 3px; background-color: teal; color: white; font-size: 16px; padding: 5px 10px;" onclick="generateNewMosaic()">
+			Generate New Mosaic
+		</div>
+	</div>
+  </body>
+</html>
