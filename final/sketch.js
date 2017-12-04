@@ -201,17 +201,17 @@ function draw() {
 function setNewImgChoice(imgChoice) {
   switch(imgChoice) {
     case "marilynmonroe.jpg":
-        mosaic_img = marilyn_img;
-        break;
+      mosaic_img = marilyn_img;
+      break;
     case "apple.jpg":
-        mosaic_img = apple_img
-        break;
+      mosaic_img = apple_img
+      break;
     case "egg.png":
-        mosaic_img = egg_img
-        break;
+      mosaic_img = egg_img
+      break;
     case "gudetama.jpg":
-        mosaic_img = gudetama_img
-        break;
+      mosaic_img = gudetama_img
+      break;
     default:
         mosaic_img = marilyn_img;
 }
